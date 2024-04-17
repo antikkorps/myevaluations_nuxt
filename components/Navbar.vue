@@ -23,9 +23,9 @@ const links = [
   },
 
   {
-    label: "Command Palette",
+    label: "A propos",
     icon: "i-heroicons-command-line",
-    to: "/",
+    to: "/about",
   },
   {
     label: "Examples",
@@ -50,7 +50,10 @@ onMounted(() => {
     >
       <div class="sm:hidden">
         <button @click="handleMobileMenu" class="flex items-center">
-          <i class="i-heroicons-bars-3 w-6 h-6 mr-4"></i>
+          <i
+            class="i-heroicons-bars-3 w-6 h-6 mr-4 transition-transform duration-500 ease-in-out"
+            :class="{ 'transform rotate-180': showMenu, 'transform rotate-0': !showMenu }"
+          ></i>
           menu
         </button>
       </div>
@@ -63,7 +66,7 @@ onMounted(() => {
           :to="link.to"
           class="mr-4"
         >
-          <i :class="link.icon" class="w-10 h-10"></i>
+          <i :class="link.icon" class="w-4 h-4"></i>
           {{ link.label }}
         </NuxtLink>
       </div>
@@ -82,7 +85,13 @@ onMounted(() => {
           @click="handleMobileMenu"
           class="flex justify-left relative left-6 top-2 items-center my-5"
         >
-          <i class="i-heroicons-x-mark w-6 h-6"></i>
+          <i
+            class="i-heroicons-x-mark w-6 h-6 transition-transform ease-in-out"
+            :class="{
+              'transform rotate-180 duration-500 delay-200': showMenu,
+              'transform rotate-0': !showMenu,
+            }"
+          ></i>
         </button>
         <div class="flex my-auto items-center">
           <div class="flex flex-col w-full justify-center items-center align-middle">
@@ -90,9 +99,10 @@ onMounted(() => {
               v-for="(link, index) in links"
               :key="`link-${index}`"
               :to="link.to"
-              class="my-4 mx-auto"
+              @click="handleMobileMenu"
+              class="my-4 mx-auto text-2xl align-middle flex items-center justify-center"
             >
-              <i :class="link.icon"></i>
+              <i :class="link.icon" class="w-6 h-6 mr-3"></i>
               {{ link.label }}
             </NuxtLink>
           </div>
