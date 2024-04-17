@@ -1,3 +1,6 @@
 <template>
-  <div><ColorMode /> <slot /></div>
+  <div>
+    <Navbar />
+    <slot />
+  </div>
 </template>
