@@ -119,11 +119,11 @@ onMounted(() => {
 
 .slide-enter-from,
 .slide-leave-to {
-  transform: translateY(-100%);
+  transform: translateX(-100%);
 }
 
 .slide-enter-to,
 .slide-leave-from {
-  transform: translateY(0);
+  transform: translateX(0);
 }
 </style>
