@@ -1,8 +1,9 @@
 // import GithubProvider from "@auth/core/providers/github"
-import credentialsProvider from "@auth/core/providers/credentials"
+import Credentials from "@auth/core/providers/credentials"
 import type { AuthConfig } from "@auth/core/types"
 import { NuxtAuthHandler } from "#auth"
 import bcrypt from "bcrypt"
+
 import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
@@ -17,7 +18,11 @@ const runtimeConfig = useRuntimeConfig()
 export const authOptions: AuthConfig = {
   secret: runtimeConfig.authJs.secret,
   providers: [
-    credentialsProvider({
+    // GithubProvider({
+    //   clientId: runtimeConfig.github.clientId,
+    //   clientSecret: runtimeConfig.github.clientSecret,
+    // }),
+    Credentials({
       name: "credentials",
       credentials: {
         email: { label: "email", type: "email" },
@@ -58,40 +63,7 @@ export const authOptions: AuthConfig = {
         }
       },
     }),
-    // GithubProvider({
-    //   clientId: runtimeConfig.github.clientId,
-    //   clientSecret: runtimeConfig.github.clientSecret
-    // }),
   ],
-  callbacks: {
-    jwt: async ({ token, user }) => {
-      if (user) {
-        token.id = user.id
-        token.email = user.email
-        token.firstName = user.firstname
-        token.lastName = user.lastname
-        token.avatar = user.avatar
-        token.role = user.role
-      }
-      return token
-    },
-    session: async ({ session, token }) => {
-      session.user = session.user || {
-        id: "",
-        firstName: "",
-        lastName: "",
-        avatar: "",
-        role: "",
-      }
-      session.user.id = token.id as string
-      session.user.email = token.email as string
-      session.user.firstName = token.firstName as string
-      session.user.lastName = token.lastName as string
-      session.user.avatar = token.avatar as string
-      session.user.role = token.role as string
-      return session
-    },
-  },
 }
 
 export default NuxtAuthHandler(authOptions, runtimeConfig)
