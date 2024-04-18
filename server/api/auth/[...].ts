@@ -64,6 +64,35 @@ export const authOptions: AuthConfig = {
       },
     }),
   ],
+  // callbacks: {
+  //   jwt: async ({ token, user }) => {
+  //     if (user) {
+  //       token.id = user.id
+  //       token.email = user.email
+  //       token.firstname = user.firstname
+  //       token.lastname = user.lastname
+  //       token.avatar = user.avatar
+  //       token.role = user.role
+  //     }
+  //     return token
+  //   },
+  //   session: async ({ session, token }) => {
+  //     session.user = session.user || {
+  //       id: "",
+  //       firstName: "",
+  //       lastName: "",
+  //       avatar: "",
+  //       role: "",
+  //     }
+  //     session.user.id = token.id as string
+  //     session.user.email = token.email as string
+  //     session.user.firstname = token.firstname as string
+  //     session.user.lastname = token.lastname as string
+  //     session.user.avatar = token.avatar as string
+  //     session.user.role = token.role as string
+  //     return session
+  //   },
+  // },
 }
 
 export default NuxtAuthHandler(authOptions, runtimeConfig)

@@ -12,7 +12,7 @@ const { signIn, signOut, session, status, cookies, getProviders } = useAuth()
     <div>
       <pre>{{ status }}</pre>
       <pre>{{ session?.user }}</pre>
-      <pre>{{ cookies }}</pre>
+      <pre>cookie : {{ cookies }}</pre>
     </div>
   </div>
 </template>
