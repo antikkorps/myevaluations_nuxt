@@ -1,5 +1,3 @@
 <template>
-  <nuxt-link to="/login">
-    <UButton color="primary" variant="solid">Se connecter</UButton>
-  </nuxt-link>
+  <UButton color="primary" variant="solid">Se connecter</UButton>
 </template>
