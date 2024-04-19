@@ -76,7 +76,7 @@ onMounted(() => {
       <div class="flex items-center">
         <ColorMode />
         <div v-if="session" class="flex justify-center items-center mx-auto">
-          <UiAvatar class="hidden sm:block" />
+          <UiAvatar class="hidden sm:block" size="lg" />
           <UiLogoutButton />
         </div>
 
@@ -116,6 +116,13 @@ onMounted(() => {
         </div>
       </div>
     </transition>
+    <div
+      class="w-full absolute bottom-0 h-20 bg-slate-100 dark:bg-neutral-900 flex flex-row justify-around items-center"
+    >
+      <div v-if="session" class="flex justify-center items-center mx-auto">
+        <UiAvatar class="block sm:hidden" size="lg" />
+      </div>
+    </div>
   </div>
 </template>
 <style scoped>
