@@ -48,15 +48,14 @@ onMounted(() => {
 <template>
   <div>
     <div
-      class="w-full relative top-0 h-20 bg-slate-100 dark:bg-neutral-900 flex flex-row justify-around items-center mb-5"
+      class="w-full relative top-0 h-20 bg-slate-100 dark:bg-neutral-900 flex flex-row justify-around items-center"
     >
       <div class="sm:hidden">
         <button @click="handleMobileMenu" class="flex items-center">
           <i
-            class="i-heroicons-bars-3 w-6 h-6 mr-4 transition-transform duration-500 ease-in-out"
+            class="i-heroicons-bars-3 w-6 h-6 transition-transform duration-500 ease-in-out"
             :class="{ 'transform rotate-180': showMenu, 'transform rotate-0': !showMenu }"
           ></i>
-          menu
         </button>
       </div>
       <div>logo</div>
@@ -90,7 +89,7 @@ onMounted(() => {
       >
         <button
           @click="handleMobileMenu"
-          class="flex justify-left relative left-4 top-2 items-center my-5"
+          class="flex justify-left relative left-7 top-2 items-center my-5"
         >
           <i
             class="i-heroicons-x-mark w-6 h-6 transition-transform ease-in-out"
