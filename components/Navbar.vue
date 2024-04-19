@@ -10,9 +10,9 @@ const handleMobileMenu = () => {
   showMenu.value = !showMenu.value
   nextTick(() => {
     if (showMenu.value) {
-      menuMobile?.classList.add("menu-open")
+      document.body.style.overflow = "hidden"
     } else {
-      menuMobile?.classList.remove("menu-open")
+      document.body.style.overflow = ""
     }
   })
 }
@@ -76,7 +76,7 @@ onMounted(() => {
       <div class="flex items-center">
         <ColorMode />
         <div v-if="session" class="flex justify-center items-center mx-auto">
-          <UiAvatar />
+          <UiAvatar class="hidden sm:block" />
           <UiLogoutButton />
         </div>
 
