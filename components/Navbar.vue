@@ -58,14 +58,14 @@ onMounted(() => {
           ></i>
         </button>
       </div>
-      <div>logo</div>
+      <div class="px-6">logo</div>
 
-      <div class="hidden sm:block">
+      <div class="hidden sm:flex justify-center space-x-4">
         <NuxtLink
           v-for="(link, index) in links"
           :key="`link-${index}`"
           :to="link.to"
-          class="mr-4"
+          class="px-4"
         >
           <i :class="link.icon" class="w-4 h-4"></i>
           {{ link.label }}
