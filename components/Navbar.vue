@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { signIn, signOut, session, status, user, cookies, getProviders } = useAuth()
+
 const route = useRoute()
 
 const showMenu = ref(false)
@@ -73,7 +75,12 @@ onMounted(() => {
 
       <div class="flex items-center">
         <ColorMode />
-        <UiLoginButton />
+        <div v-if="session" class="flex justify-center items-center mx-auto">
+          <UiAvatar />
+          <UiLogoutButton />
+        </div>
+
+        <UiLoginButton v-else />
       </div>
     </div>
     <transition name="slide">
@@ -83,7 +90,7 @@ onMounted(() => {
       >
         <button
           @click="handleMobileMenu"
-          class="flex justify-left relative left-6 top-2 items-center my-5"
+          class="flex justify-left relative left-4 top-2 items-center my-5"
         >
           <i
             class="i-heroicons-x-mark w-6 h-6 transition-transform ease-in-out"

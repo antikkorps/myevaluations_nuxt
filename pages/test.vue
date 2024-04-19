@@ -13,8 +13,8 @@ const { signIn, signOut, session, status, user, cookies, getProviders } = useAut
       <pre>status : {{ status }}</pre>
       <pre>session user : {{ session?.user }}</pre>
       <pre>cookie : {{ cookies }}</pre>
-      <pre>user :  {{ session?.user.firstname }}</pre>
-      <pre>role : {{ session?.user.role }}</pre>
+      <pre>user :  {{ session?.user?.firstname }}</pre>
+      <pre>role : {{ session?.user?.role }}</pre>
     </div>
   </div>
 </template>
