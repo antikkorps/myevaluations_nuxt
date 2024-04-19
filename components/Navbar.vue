@@ -117,10 +117,10 @@ onMounted(() => {
       </div>
     </transition>
     <div
-      class="w-full absolute bottom-0 h-20 bg-slate-100 dark:bg-neutral-900 flex flex-row justify-around items-center"
+      class="w-full absolute bottom-0 h-20 bg-slate-100 dark:bg-neutral-900 flex flex-row justify-around items-center sm:hidden"
     >
-      <div v-if="session" class="flex justify-center items-center mx-auto">
-        <UiAvatar class="block sm:hidden" size="lg" />
+      <div class="flex justify-center items-center mx-auto">
+        <UiAvatar v-if="session" class="block sm:hidden" size="xl" />
       </div>
     </div>
   </div>
