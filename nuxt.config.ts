@@ -28,6 +28,7 @@ export default defineNuxtConfig({
         verifyClientOnEveryRequest: true, // whether to hit the /auth/session endpoint on every client request
         authenticatedRedirectTo: "/",
       },
+      baseUrl: process.env.NUXT_BASE_URL,
     },
   },
 })
