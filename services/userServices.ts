@@ -1,16 +1,14 @@
+import type { User } from "@prisma/client"
+import type { UserRegistration } from "../types/types"
+
 export const register = async (email: string, password: string) => {
-  const response = await fetch(`/api/auth/register`, {
+  const user: UserRegistration = { email, password }
+  const response = await fetch("/api/auth/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify(user),
   })
-  if (response.ok) {
-    const data = await response.json()
-    console.log("success", data)
-    return data
-  } else {
-    throw new Error("Erreur de connexion")
-  }
+  return response.ok
 }
