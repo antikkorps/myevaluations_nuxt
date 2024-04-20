@@ -13,8 +13,9 @@ const props = defineProps({
       <UAvatar
         :size="props.size"
         :src="session?.user?.avatar"
-        alt="Avatar"
-        class="mx-2 pt-3 justify-center items-center"
+        icon="i-heroicons-photo"
+        :alt="session?.user?.firstname + ' ' + session?.user?.lastname"
+        class="mx-2"
       />
     </nuxt-link>
   </div>

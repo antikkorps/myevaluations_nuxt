@@ -7,6 +7,9 @@ const router = useRouter()
 const schema = z.object({
   email: z.string().email("Invalid email"),
   password: z.string().min(8, "Must be at least 8 characters"),
+  verifyPass: z.string().refine((data) => data === state.password, {
+    message: "Les mots de passe ne correspondenxt pas",
+  }),
 })
 
 type Schema = z.output<typeof schema>
@@ -14,12 +17,14 @@ type Schema = z.output<typeof schema>
 const state = reactive({
   email: "",
   password: "",
+  verifyPass: "",
 })
 
 const handleSubmit = async () => {
   try {
     await userServices.register(state.email, state.password)
     console.log("success")
+    router.push("/login")
   } catch (error) {
     console.log("error", error)
   }
@@ -38,7 +43,7 @@ const handleSubmit = async () => {
       </UFormGroup>
 
       <UFormGroup label="Confirmez le mot de passe" name="verifyPass">
-        <UInput v-model="state.password" type="password" />
+        <UInput v-model="state.verifyPass" type="password" />
       </UFormGroup>
 
       <div class="flex items-center justify-between">
