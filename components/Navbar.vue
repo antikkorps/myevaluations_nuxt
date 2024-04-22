@@ -39,6 +39,11 @@ const links = [
     icon: "i-heroicons-question-mark-circle",
     to: "/",
   },
+{
+    label: "Profile",
+    icon: "i-heroicons-question-mark-circle",
+    to: "/profile",
+  },
 ]
 
 onMounted(() => {
