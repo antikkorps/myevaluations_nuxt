@@ -39,7 +39,7 @@ const links = [
     icon: "i-heroicons-question-mark-circle",
     to: "/",
   },
-{
+  {
     label: "Profile",
     icon: "i-heroicons-question-mark-circle",
     to: "/profile",
@@ -63,9 +63,9 @@ onMounted(() => {
           ></i>
         </button>
       </div>
-      <div class="px-6">logo</div>
+      <div class="px-auto sm:w-52 flex justify-center">logo</div>
 
-      <div class="hidden sm:flex justify-center space-x-4">
+      <div class="hidden sm:flex items-center justify-center space-x-4">
         <NuxtLink
           v-for="(link, index) in links"
           :key="`link-${index}`"
