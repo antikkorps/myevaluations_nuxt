@@ -2,5 +2,5 @@
 definePageMeta({ middleware: "auth", auth: { guestRedirectTo: "/login" } })
 </script>
 <template>
-  <NuxtPage />
+  <h1>This is the forms view</h1>
 </template>
