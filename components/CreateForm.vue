@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { LetterCaseCapitalizeIcon } from "@radix-icons/vue"
 import type { FieldType } from "~/types/formsTypes"
 import draggable from "vuedraggable"
 
 import { ref } from "vue"
+import InputTypeButton from "./ui/InputTypeButton.vue"
 
 const fields = ref<FieldType[]>([])
 const formTitle = ref("")
@@ -42,21 +44,38 @@ const submitForm = () => {
 
 <template>
   <div class="flex">
-    <div class="w-1/4">
-      <button @click="addField('text')">Add Text Field</button>
+    <div
+      class="w-1/3 dark:bg-neutral-900 bg-neutral-300 py-24"
+      :style="{ height: 'calc(100vh - 80px)' }"
+    >
+      <InputTypeButton
+        label="Text input"
+        description="A single line of text"
+        :icon="LetterCaseCapitalizeIcon"
+        fieldType="text"
+        @add-field="addField"
+      />
+      <button
+        class="flex justify-center items-center py-4 px-2"
+        @click="addField('text')"
+      >
+        <div class="h-10 w-10 bg-amber-50 mr-2"></div>
+        <div class="text-2xl">Text input</div>
+        <div class="text-2xs">A single ligne of text</div>
+      </button>
       <button @click="addField('number')">Add Number Field</button>
       <button @click="addField('date')">Add Date Field</button>
       <button @click="addField('select')">Add Select Field</button>
       <!-- Add more buttons as needed -->
     </div>
-    <div class="w-3/4">
+    <div class="w-2/3">
       <input v-model="formTitle" placeholder="Form Title" class="mb-4" />
       <div v-for="(field, index) in fields" :key="`field-${index}`">
         <!-- The rest of your form builder code goes here -->
       </div>
       <button @click="submitForm">Submit Form</button>
     </div>
-    <draggable v-model="meals" tag="ul">
+    <draggable v-model="meals" tag="ul" :itemKey="(meal) => meals.indexOf(meal)">
       <template #item="{ element: meal }">
         <li>{{ meal }}</li>
       </template>
