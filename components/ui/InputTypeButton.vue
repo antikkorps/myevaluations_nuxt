@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps({
   icon: {
-    type: Object,
+    type: String,
     required: true,
   },
   label: {
@@ -27,7 +27,7 @@ const clickHandler = () => {
 <template>
   <button class="flex justify-center items-center py-4 px-2" @click="clickHandler">
     <div class="h-10 w-10 bg-neutral-800 mr-2 flex justify-center items-center">
-      <component :is="icon" class="w-6 h-6" />
+      <Icon :name="icon" class="w-6 h-6" />
     </div>
     <div class="flex flex-col justify-start text-start">
       <div class="text-lg">{{ label }}</div>

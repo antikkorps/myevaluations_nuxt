@@ -3,7 +3,7 @@ import { resolve } from "node:path"
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["radix-vue", "@nuxt/ui", "@hebilicious/authjs-nuxt"],
+  modules: ["radix-vue", "@nuxt/ui", "@hebilicious/authjs-nuxt", "nuxt-icon"],
   // Optional default config
   //  authJs: {
   //    verifyClientOnEveryRequest: true,

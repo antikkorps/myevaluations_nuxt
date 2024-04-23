@@ -26,86 +26,87 @@ const addFormElements = [
   {
     label: "Text input",
     description: "A single line of text",
-    icon: LetterCaseCapitalizeIcon,
+    icon: "ph:text-aa",
     type: "text",
   },
   {
     label: "Number input",
     description: "A number",
-    icon: LetterCaseCapitalizeIcon,
+    icon: "bi:123",
     type: "number",
   },
   {
     label: "Date input",
     description: "A date",
-    icon: LetterCaseCapitalizeIcon,
+    icon: "mdi:calendar-month-outline",
     type: "date",
+  },
+  {
+    label: "Time input",
+    description: "A time",
+    icon: "material-symbols:alarm",
+    type: "time",
   },
   {
     label: "Select input",
     description: "A dropdown",
-    icon: LetterCaseCapitalizeIcon,
+    icon: "octicon:single-select-24",
     type: "select",
   },
   {
     label: "Radio input",
     description: "A radio button",
-    icon: LetterCaseCapitalizeIcon,
+    icon: "ic:sharp-radio-button-checked",
     type: "radio",
   },
   {
     label: "Checkbox input",
     description: "A checkbox",
-    icon: LetterCaseCapitalizeIcon,
+    icon: "memory:checkbox-marked",
     type: "checkbox",
   },
   {
     label: "Textarea input",
     description: "A multi-line text input",
-    icon: LetterCaseCapitalizeIcon,
+    icon: "fluent:text-align-left-16-regular",
     type: "textarea",
   },
   {
     label: "File input",
     description: "A file upload",
-    icon: LetterCaseCapitalizeIcon,
+    icon: "icon-park-outline:upload",
     type: "file",
   },
   {
     label: "Email input",
     description: "An email address",
-    icon: LetterCaseCapitalizeIcon,
+    icon: "ic:round-alternate-email",
     type: "email",
   },
   {
     label: "Phone input",
     description: "A phone number",
-    icon: LetterCaseCapitalizeIcon,
+    icon: "material-symbols:call-outline-rounded",
     type: "phone",
-  },
-  {
-    label: "Password input",
-    description: "A password",
-    icon: LetterCaseCapitalizeIcon,
-    type: "password",
   },
   {
     label: "Color input",
     description: "A color",
-    icon: LetterCaseCapitalizeIcon,
+    icon: "material-symbols:format-color-fill",
     type: "color",
   },
-  {
-    label: "Time input",
-    description: "A time",
-    icon: LetterCaseCapitalizeIcon,
-    type: "time",
-  },
+
   {
     label: "Range input",
     description: "A range",
-    icon: LetterCaseCapitalizeIcon,
+    icon: "lucide:sliders-horizontal",
     type: "range",
+  },
+  {
+    label: "star input",
+    description: "A star rating",
+    icon: "mdi:star",
+    type: "star",
   },
 ]
 
@@ -132,7 +133,7 @@ const submitForm = () => {
 <template>
   <div class="flex">
     <div
-      class="w-1/3 dark:bg-neutral-900 bg-neutral-300 py-4"
+      class="w-1/3 dark:bg-neutral-900 bg-neutral-300 py-4 h-auto items-center"
       :style="{ height: 'calc(100vh - 80px)' }"
     >
       <InputTypeButton
