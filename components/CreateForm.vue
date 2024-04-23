@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { FieldType } from "~/types/formsTypes"
+import draggable from "vuedraggable"
+
 import { ref } from "vue"
 
 const fields = ref<FieldType[]>([])
@@ -17,6 +19,8 @@ const addField = (type: string) => {
     ref: "",
   })
 }
+
+const meals = ref(["Hamburger", "Pizza", "Spaghetti", "Tacos", "Teriyaki Chicken"])
 
 const removeField = (index: number) => {
   fields.value.splice(index, 1)
@@ -52,5 +56,10 @@ const submitForm = () => {
       </div>
       <button @click="submitForm">Submit Form</button>
     </div>
+    <draggable v-model="meals" tag="ul">
+      <template #item="{ element: meal }">
+        <li>{{ meal }}</li>
+      </template>
+    </draggable>
   </div>
 </template>
