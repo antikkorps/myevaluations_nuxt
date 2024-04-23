@@ -1,51 +1,46 @@
 <script setup lang="ts">
-const fields = ref([])
+import type { FieldType } from "~/types/formsTypes"
+import { ref } from "vue"
 
-const addField = () => {
-  fields.value.push({ type: "text", label: "", value: "", options: [] })
+const fields = ref<FieldType[]>([])
+
+const addField = (type: string) => {
+  fields.value.push({ type: type, label: "", value: "", options: [] })
 }
 
-const removeField = (index) => {
+const removeField = (index: number) => {
   fields.value.splice(index, 1)
 }
 
-const addOption = (index) => {
+const addOption = (index: number) => {
   fields.value[index].options.push("")
 }
 
-const removeOption = (fieldIndex, optionIndex) => {
+const removeOption = (fieldIndex: number, optionIndex: number) => {
   fields.value[fieldIndex].options.splice(optionIndex, 1)
 }
 
 const submitForm = () => {
   // Submit the form
+  console.log(fields.value)
 }
 </script>
+
 <template>
-  <div>
-    <div v-for="(field, index) in fields" :key="`field-${index}`">
-      <select v-model="field.type">
-        <option value="text">Text</option>
-        <option value="number">Number</option>
-        <option value="date">Date</option>
-        <option value="select">Select</option>
-        <!-- Add more options as needed -->
-      </select>
-      <input v-model="field.label" placeholder="Label" />
-      <input v-model="field.value" placeholder="Value" v-if="field.type !== 'select'" />
-      <div v-if="field.type === 'select'">
-        <button @click="addOption(index)">Add Option</button>
-        <div
-          v-for="(option, optionIndex) in field.options"
-          :key="`option-${optionIndex}`"
-        >
-          <input v-model="fields[index].options[optionIndex]" placeholder="Option" />
-          <button @click="removeOption(index, optionIndex)">Remove Option</button>
-        </div>
-      </div>
-      <button @click="removeField(index)">Remove Field</button>
+  <div class="flex">
+    <div class="w-1/4">
+      <button @click="addField('text')">Add Text Field</button>
+      <button @click="addField('number')">Add Number Field</button>
+      <button @click="addField('date')">Add Date Field</button>
+      <button @click="addField('select')">Add Select Field</button>
+      <!-- Add more buttons as needed -->
     </div>
-    <button @click="addField">Add Field</button>
-    <button @click="submitForm">Submit</button>
+    <div class="w-3/4">
+      <input v-model="formTitle" placeholder="Form Title" class="mb-4" />
+      <div v-for="(field, index) in fields" :key="`field-${index}`">
+        <!-- The rest of your form builder code goes here -->
+      </div>
+      <button @click="submitForm">Submit Form</button>
+    </div>
   </div>
 </template>
