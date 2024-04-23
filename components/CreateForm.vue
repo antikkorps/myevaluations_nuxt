@@ -22,6 +22,93 @@ const addField = (type: string) => {
   })
 }
 
+const addFormElements = [
+  {
+    label: "Text input",
+    description: "A single line of text",
+    icon: LetterCaseCapitalizeIcon,
+    type: "text",
+  },
+  {
+    label: "Number input",
+    description: "A number",
+    icon: LetterCaseCapitalizeIcon,
+    type: "number",
+  },
+  {
+    label: "Date input",
+    description: "A date",
+    icon: LetterCaseCapitalizeIcon,
+    type: "date",
+  },
+  {
+    label: "Select input",
+    description: "A dropdown",
+    icon: LetterCaseCapitalizeIcon,
+    type: "select",
+  },
+  {
+    label: "Radio input",
+    description: "A radio button",
+    icon: LetterCaseCapitalizeIcon,
+    type: "radio",
+  },
+  {
+    label: "Checkbox input",
+    description: "A checkbox",
+    icon: LetterCaseCapitalizeIcon,
+    type: "checkbox",
+  },
+  {
+    label: "Textarea input",
+    description: "A multi-line text input",
+    icon: LetterCaseCapitalizeIcon,
+    type: "textarea",
+  },
+  {
+    label: "File input",
+    description: "A file upload",
+    icon: LetterCaseCapitalizeIcon,
+    type: "file",
+  },
+  {
+    label: "Email input",
+    description: "An email address",
+    icon: LetterCaseCapitalizeIcon,
+    type: "email",
+  },
+  {
+    label: "Phone input",
+    description: "A phone number",
+    icon: LetterCaseCapitalizeIcon,
+    type: "phone",
+  },
+  {
+    label: "Password input",
+    description: "A password",
+    icon: LetterCaseCapitalizeIcon,
+    type: "password",
+  },
+  {
+    label: "Color input",
+    description: "A color",
+    icon: LetterCaseCapitalizeIcon,
+    type: "color",
+  },
+  {
+    label: "Time input",
+    description: "A time",
+    icon: LetterCaseCapitalizeIcon,
+    type: "time",
+  },
+  {
+    label: "Range input",
+    description: "A range",
+    icon: LetterCaseCapitalizeIcon,
+    type: "range",
+  },
+]
+
 const meals = ref(["Hamburger", "Pizza", "Spaghetti", "Tacos", "Teriyaki Chicken"])
 
 const removeField = (index: number) => {
@@ -45,14 +132,16 @@ const submitForm = () => {
 <template>
   <div class="flex">
     <div
-      class="w-1/3 dark:bg-neutral-900 bg-neutral-300 py-24"
+      class="w-1/3 dark:bg-neutral-900 bg-neutral-300 py-4"
       :style="{ height: 'calc(100vh - 80px)' }"
     >
       <InputTypeButton
-        label="Text input"
-        description="A single line of text"
-        :icon="LetterCaseCapitalizeIcon"
-        fieldType="text"
+        v-for="(button, index) in addFormElements"
+        :key="index"
+        :label="button.label"
+        :description="button.description"
+        :icon="button.icon"
+        :type="button.type"
         @add-field="addField"
       />
       <button
