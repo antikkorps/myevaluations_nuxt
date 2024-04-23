@@ -3,9 +3,19 @@ import type { FieldType } from "~/types/formsTypes"
 import { ref } from "vue"
 
 const fields = ref<FieldType[]>([])
+const formTitle = ref("")
 
 const addField = (type: string) => {
-  fields.value.push({ type: type, label: "", value: "", options: [] })
+  fields.value.push({
+    type: type,
+    label: "",
+    value: "",
+    options: [],
+    name: "",
+    required: false,
+    unique: false,
+    ref: "",
+  })
 }
 
 const removeField = (index: number) => {
