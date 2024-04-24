@@ -1,5 +1,9 @@
 <script setup lang="ts">
-definePageMeta({ middleware: "auth", auth: { guestRedirectTo: "/login" } })
+definePageMeta({
+  layout: "dashboard",
+  middleware: "auth",
+  auth: { guestRedirectTo: "/login" },
+})
 </script>
 <template>
   <CreateForm />

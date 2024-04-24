@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { LetterCaseCapitalizeIcon } from "@radix-icons/vue"
 import type { FieldType } from "~/types/formsTypes"
 import draggable from "vuedraggable"
 
@@ -131,10 +130,11 @@ const submitForm = () => {
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex w-full">
     <div class="w-1/3 dark:bg-neutral-900 bg-neutral-300 py-4 h-auto items-center">
       <InputTypeButton
         v-for="(button, index) in addFormElements"
+        :name="`field-${index}`"
         :key="index"
         :label="button.label"
         :description="button.description"
@@ -145,18 +145,103 @@ const submitForm = () => {
       />
     </div>
     <div class="w-2/3 mx-auto justify-center items-center">
-      <div>
+      <div class="flex flex-col w-full mx-auto sm:w-4/5 justify-center">
         <UInput
           v-model="formTitle"
           placeholder="Donner un titre au formulaire"
           class="mb-4"
         />
         <div v-for="(field, index) in fields" :key="`field-${index}`">
-          <!-- The rest of your form builder code goes here -->
+          <UInput
+            v-if="field.type === 'text'"
+            type="text"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'number'"
+            type="number"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'date'"
+            type="date"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'time'"
+            type="time"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'select'"
+            type="select"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'radio'"
+            type="radio"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'checkbox'"
+            type="checkbox"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'textarea'"
+            type="textarea"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'file'"
+            type="file"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'email'"
+            type="email"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'phone'"
+            type="phone"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'color'"
+            type="color"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'range'"
+            type="range"
+            v-model="field.value"
+            :name="field.name"
+          />
+          <UInput
+            v-if="field.type === 'star'"
+            type="star"
+            v-model="field.value"
+            :name="field.name"
+          />
         </div>
-        <UButton color="primary" variant="solid" @click="submitForm"
-          >Sauvegarder le formulaire</UButton
-        >
+        <div class="flex flex-row w-full sm:w-2/5 justify-end mt-4">
+          <UButton class="w-full" color="primary" variant="solid" @click="submitForm"
+            >Sauvegarder le formulaire</UButton
+          >
+        </div>
       </div>
       <draggable v-model="meals" tag="ul" :itemKey="(meal) => meals.indexOf(meal)">
         <template #item="{ element: meal }">
