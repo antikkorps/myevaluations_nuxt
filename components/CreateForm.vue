@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FieldType } from "~/types/formsTypes"
+import type { FieldType, OptionType } from "~/types/formsTypes"
 import draggable from "vuedraggable"
 
 import { ref } from "vue"
@@ -119,11 +119,16 @@ const addOption = (field: FieldType) => {
   if (!Array.isArray(field.options)) {
     field.options = []
   }
-  field.options.push({ value: "", label: "" })
+  field.options.push({ value: "", label: "", validated: false })
+}
+
+const validateOption = (option: OptionType) => {
+  option.validated = true
 }
 
 const removeOption = (fieldIndex: number, optionIndex: number) => {
   fields.value[fieldIndex].options.splice(optionIndex, 1)
+  fields.value[fieldIndex].options = [...fields.value[fieldIndex].options]
 }
 
 const submitForm = () => {
@@ -184,17 +189,42 @@ const submitForm = () => {
               type="select"
               v-model="field.value"
               :name="field.name"
-              :option="field.options"
+              :options="field.options"
             />
-            <div
-              v-for="(option, optionIndex) in field.options"
-              :key="`option-${optionIndex}`"
-            >
-              <input v-model="option.value" placeholder="Value" />
-              <input v-model="option.label" placeholder="Label" />
-              <button @click="removeOption(index, optionIndex)">Remove Option</button>
-            </div>
-            <UButton @click="addOption(field)">Ajouter une option</UButton>
+
+            <UPopover>
+              <UButton
+                color="white"
+                label="Open"
+                trailing-icon="i-heroicons-chevron-down-20-solid"
+              />
+
+              <template #panel="{ close }">
+                <div class="p-8">
+                  <div
+                    v-for="(option, optionIndex) in field.options"
+                    :key="`option-${optionIndex}`"
+                  >
+                    <div class="flex justify-center mx-auto py-3">
+                      <UInput v-model="option.value" placeholder="Valeur" />
+                      <UInput v-model="option.label" placeholder="Libellé" />
+                    </div>
+                    <UButton
+                      v-if="option.validated"
+                      @click="removeOption(index, optionIndex)"
+                    >
+                      Supprimerl'option
+                    </UButton>
+                    <UButton v-else @click="validateOption(option)"
+                      >Valider l'option</UButton
+                    >
+                    <UButton @click="addOption(field)">Ajouter une option</UButton>
+                  </div>
+
+                  <UButton label="Close" @click="close" />
+                </div>
+              </template>
+            </UPopover>
           </div>
           <UInput
             v-if="field.type === 'radio'"

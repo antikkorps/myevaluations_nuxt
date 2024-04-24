@@ -3,8 +3,14 @@ export interface FieldType {
   type: string
   label: string
   value: string
-  options: Array<{ label: string; value: string }>
+  options: OptionType[]
   required: boolean
   unique: boolean
   ref: string
+}
+
+export interface OptionType {
+  label: string
+  value: string
+  validated: boolean
 }
