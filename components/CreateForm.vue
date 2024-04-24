@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { FieldType, OptionType } from "~/types/formsTypes"
-import draggable from "vuedraggable"
 
 import { ref } from "vue"
 import InputTypeButton from "./ui/InputTypeButton.vue"
@@ -109,8 +108,6 @@ const addFormElements = [
   },
 ]
 
-const meals = ref(["Hamburger", "Pizza", "Spaghetti", "Tacos", "Teriyaki Chicken"])
-
 const removeField = (index: number) => {
   fields.value.splice(index, 1)
 }
@@ -192,10 +189,10 @@ const submitForm = () => {
               :options="field.options"
             />
 
-            <UPopover>
+            <UPopover overlay>
               <UButton
                 color="white"
-                label="Open"
+                label="Choisir les options"
                 trailing-icon="i-heroicons-chevron-down-20-solid"
               />
 
@@ -218,10 +215,13 @@ const submitForm = () => {
                     <UButton v-else @click="validateOption(option)"
                       >Valider l'option</UButton
                     >
+                  </div>
+                  <div>
                     <UButton @click="addOption(field)">Ajouter une option</UButton>
                   </div>
-
-                  <UButton label="Close" @click="close" />
+                  <div>
+                    <UButton label="Fermer la fenêtre" @click="close" />
+                  </div>
                 </div>
               </template>
             </UPopover>
@@ -287,11 +287,6 @@ const submitForm = () => {
           >
         </div>
       </div>
-      <draggable v-model="meals" tag="ul" :itemKey="(meal) => meals.indexOf(meal)">
-        <template #item="{ element: meal }">
-          <li>{{ meal }}</li>
-        </template>
-      </draggable>
     </div>
   </div>
 </template>
