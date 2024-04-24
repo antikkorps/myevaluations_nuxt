@@ -115,8 +115,11 @@ const removeField = (index: number) => {
   fields.value.splice(index, 1)
 }
 
-const addOption = (index: number) => {
-  fields.value[index].options.push("")
+const addOption = (field: FieldType) => {
+  if (!Array.isArray(field.options)) {
+    field.options = []
+  }
+  field.options.push({ value: "", label: "" })
 }
 
 const removeOption = (fieldIndex: number, optionIndex: number) => {
@@ -176,12 +179,23 @@ const submitForm = () => {
             v-model="field.value"
             :name="field.name"
           />
-          <UInput
-            v-if="field.type === 'select'"
-            type="select"
-            v-model="field.value"
-            :name="field.name"
-          />
+          <div v-if="field.type === 'select'">
+            <USelect
+              type="select"
+              v-model="field.value"
+              :name="field.name"
+              :option="field.options"
+            />
+            <div
+              v-for="(option, optionIndex) in field.options"
+              :key="`option-${optionIndex}`"
+            >
+              <input v-model="option.value" placeholder="Value" />
+              <input v-model="option.label" placeholder="Label" />
+              <button @click="removeOption(index, optionIndex)">Remove Option</button>
+            </div>
+            <UButton @click="addOption(field)">Ajouter une option</UButton>
+          </div>
           <UInput
             v-if="field.type === 'radio'"
             type="radio"

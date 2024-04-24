@@ -3,7 +3,7 @@ export interface FieldType {
   type: string
   label: string
   value: string
-  options: string[]
+  options: Array<{ label: string; value: string }>
   required: boolean
   unique: boolean
   ref: string
