@@ -11,7 +11,7 @@ const formTitle = ref("")
 
 const addField = (type: string) => {
   fields.value.push({
-    type: type,
+    type,
     label: "",
     value: "",
     options: [],
@@ -132,10 +132,7 @@ const submitForm = () => {
 
 <template>
   <div class="flex">
-    <div
-      class="w-1/3 dark:bg-neutral-900 bg-neutral-300 py-4 h-auto items-center"
-      :style="{ height: 'calc(100vh - 80px)' }"
-    >
+    <div class="w-1/3 dark:bg-neutral-900 bg-neutral-300 py-4 h-auto items-center">
       <InputTypeButton
         v-for="(button, index) in addFormElements"
         :key="index"
@@ -144,31 +141,28 @@ const submitForm = () => {
         :icon="button.icon"
         :type="button.type"
         @add-field="addField"
+        class="ml-1"
       />
-      <button
-        class="flex justify-center items-center py-4 px-2"
-        @click="addField('text')"
-      >
-        <div class="h-10 w-10 bg-amber-50 mr-2"></div>
-        <div class="text-2xl">Text input</div>
-        <div class="text-2xs">A single ligne of text</div>
-      </button>
-      <button @click="addField('number')">Add Number Field</button>
-      <button @click="addField('date')">Add Date Field</button>
-      <button @click="addField('select')">Add Select Field</button>
-      <!-- Add more buttons as needed -->
     </div>
-    <div class="w-2/3">
-      <input v-model="formTitle" placeholder="Form Title" class="mb-4" />
-      <div v-for="(field, index) in fields" :key="`field-${index}`">
-        <!-- The rest of your form builder code goes here -->
+    <div class="w-2/3 mx-auto justify-center items-center">
+      <div>
+        <UInput
+          v-model="formTitle"
+          placeholder="Donner un titre au formulaire"
+          class="mb-4"
+        />
+        <div v-for="(field, index) in fields" :key="`field-${index}`">
+          <!-- The rest of your form builder code goes here -->
+        </div>
+        <UButton color="primary" variant="solid" @click="submitForm"
+          >Sauvegarder le formulaire</UButton
+        >
       </div>
-      <button @click="submitForm">Submit Form</button>
+      <draggable v-model="meals" tag="ul" :itemKey="(meal) => meals.indexOf(meal)">
+        <template #item="{ element: meal }">
+          <li>{{ meal }}</li>
+        </template>
+      </draggable>
     </div>
-    <draggable v-model="meals" tag="ul" :itemKey="(meal) => meals.indexOf(meal)">
-      <template #item="{ element: meal }">
-        <li>{{ meal }}</li>
-      </template>
-    </draggable>
   </div>
 </template>
