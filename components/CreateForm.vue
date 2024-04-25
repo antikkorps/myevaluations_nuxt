@@ -153,17 +153,22 @@ const submitForm = () => {
       <div class="flex flex-col w-full mx-auto sm:w-4/5 justify-center">
         <UInput
           v-model="formTitle"
-          placeholder="Donner un titre au formulaire"
+          placeholder="Donnez un titre au formulaire"
           class="mb-4"
         />
         <div v-for="(field, index) in fields" :key="`field-${index}`">
-          <div v-if="field.type === 'text'" class="flex flex-row">
-            <UiAddInput :field="field" :removeField="() => removeField(index)" />
-          </div>
-          <div v-if="field.type === 'number'" class="flex flex-row">
-            <UInput type="number" v-model="field.value" :name="field.name" />
-            <UiDeleteFieldButton :removeField="() => removeField(index)" />
-          </div>
+          <UiAddInput
+            v-if="field.type === 'text'"
+            :field="field"
+            :removeField="() => removeField(index)"
+            inputType="text"
+          />
+          <UiAddInput
+            v-if="field.type === 'number'"
+            :field="field"
+            :removeField="() => removeField(index)"
+            inputType="number"
+          />
 
           <UInput
             v-if="field.type === 'date'"
