@@ -146,7 +146,6 @@ const submitForm = () => {
         :icon="button.icon"
         :type="button.type"
         @add-field="addField"
-        class="ml-1"
       />
     </div>
     <div class="w-2/3 mx-auto justify-center items-center">

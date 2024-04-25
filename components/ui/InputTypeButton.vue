@@ -25,9 +25,12 @@ const clickHandler = () => {
 }
 </script>
 <template>
-  <button class="flex justify-center items-center py-4 px-2" @click="clickHandler">
+  <button
+    class="flex justify-start items-center py-4 px-2 border border-stone-100 dark:border-neutral-800 w-full"
+    @click="clickHandler"
+  >
     <div class="h-10 w-10 bg-neutral-800 mr-2 flex justify-center items-center">
-      <Icon :name="icon" class="w-6 h-6" />
+      <Icon :name="icon" class="w-6 h-6 text-white" />
     </div>
     <div class="flex flex-col justify-start text-start">
       <div class="text-lg">{{ label }}</div>
