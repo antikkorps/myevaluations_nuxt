@@ -172,15 +172,15 @@ const submitForm = () => {
 
           <UInput
             v-if="field.type === 'date'"
-            type="date"
-            v-model="field.value"
-            :name="field.name"
+            :field="field"
+            :removeField="() => removeField(index)"
+            inputType="date"
           />
           <UInput
             v-if="field.type === 'time'"
-            type="time"
-            v-model="field.value"
-            :name="field.name"
+            :field="field"
+            :removeField="() => removeField(index)"
+            inputType="time"
           />
           <div v-if="field.type === 'select'">
             <USelect
