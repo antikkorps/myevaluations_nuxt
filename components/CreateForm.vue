@@ -11,6 +11,7 @@ const addField = (type: string) => {
   fields.value.push({
     type,
     label: "",
+    placeholder: "",
     value: "",
     options: [],
     name: "",
@@ -156,18 +157,14 @@ const submitForm = () => {
           class="mb-4"
         />
         <div v-for="(field, index) in fields" :key="`field-${index}`">
-          <UInput
-            v-if="field.type === 'text'"
-            type="text"
-            v-model="field.value"
-            :name="field.name"
-          />
-          <UInput
-            v-if="field.type === 'number'"
-            type="number"
-            v-model="field.value"
-            :name="field.name"
-          />
+          <div v-if="field.type === 'text'" class="flex flex-row">
+            <UiAddInput :field="field" :removeField="() => removeField(index)" />
+          </div>
+          <div v-if="field.type === 'number'" class="flex flex-row">
+            <UInput type="number" v-model="field.value" :name="field.name" />
+            <UiDeleteFieldButton :removeField="() => removeField(index)" />
+          </div>
+
           <UInput
             v-if="field.type === 'date'"
             type="date"
@@ -216,7 +213,7 @@ const submitForm = () => {
                     >
                   </div>
                   <div>
-                    <UButton @click="addOption(field)">Ajouter une option</UButton>
+                    <UButton @click="addOption(field)"></UButton>
                   </div>
                   <div>
                     <UButton label="Fermer la fenêtre" @click="close" />
@@ -267,11 +264,15 @@ const submitForm = () => {
             v-model="field.value"
             :name="field.name"
           />
-          <UInput
+          <URange
             v-if="field.type === 'range'"
             type="range"
             v-model="field.value"
             :name="field.name"
+            :min="0"
+            :max="100"
+            :model-value="0"
+            :step="10"
           />
           <UInput
             v-if="field.type === 'star'"
