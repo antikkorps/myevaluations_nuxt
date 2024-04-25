@@ -179,11 +179,13 @@ const submitForm = () => {
             :index="index"
           />
 
-          <UInput
+          <UiAddInput
             v-if="field.type === 'date'"
             :field="field"
             :removeField="() => removeField(index)"
             inputType="date"
+            :addField="addField"
+            :index="index"
           />
           <UInput
             v-if="field.type === 'time'"

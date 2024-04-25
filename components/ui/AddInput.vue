@@ -18,18 +18,25 @@ const props = defineProps({
     required: true,
   },
 })
+const inputType = reactive(new Array(props.field.length).fill(props.inputType))
 
 const emit = defineEmits(["add-field"])
 
-function addField(option: string) {
+const addField = (option: string, index: number) => {
   const newField = {
     type: option,
     label: "",
     value: "",
     name: `field_${props.field.length + 1}`,
   }
-  props.addField(props.inputType, props.index + 1)
-  console.log(props.inputType)
+  props.addField(option, index)
+  console.log(option)
+  inputType.push(option)
+}
+
+const updateInputType = (newInputType: string, index: number) => {
+  inputType[index] = newInputType
+  addField(inputType[index], props.index + 1)
 }
 </script>
 <template>
@@ -57,7 +64,7 @@ function addField(option: string) {
       </UFormGroup>
     </div>
     <div class="flex justify-center items-center mx-auto">
-      <UiAddField @add-field="addField" />
+      <UiAddField @add-field="updateInputType" />
     </div>
   </div>
 </template>
