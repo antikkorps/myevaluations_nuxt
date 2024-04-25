@@ -7,8 +7,8 @@ import InputTypeButton from "./ui/InputTypeButton.vue"
 const fields = ref<FieldType[]>([])
 const formTitle = ref("")
 
-const addField = (type: string, newField: FieldType) => {
-  fields.value.push({
+const addField = (type: string, index?: number) => {
+  const newField = {
     type,
     label: "",
     placeholder: "",
@@ -18,7 +18,12 @@ const addField = (type: string, newField: FieldType) => {
     required: false,
     unique: false,
     ref: "",
-  })
+  }
+  if (index !== undefined) {
+    fields.value.splice(index, 0, newField)
+  } else {
+    fields.value.push(newField)
+  }
 }
 
 const addFormElements = [
@@ -163,6 +168,7 @@ const submitForm = () => {
             :removeField="() => removeField(index)"
             inputType="text"
             :addField="addField"
+            :index="index"
           />
           <UiAddInput
             v-if="field.type === 'number'"
@@ -170,6 +176,7 @@ const submitForm = () => {
             :removeField="() => removeField(index)"
             inputType="number"
             :addField="addField"
+            :index="index"
           />
 
           <UInput

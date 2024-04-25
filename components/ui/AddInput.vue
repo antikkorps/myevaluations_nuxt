@@ -13,6 +13,10 @@ const props = defineProps({
     type: Function,
     required: true,
   },
+  index: {
+    type: Number,
+    required: true,
+  },
 })
 
 const emit = defineEmits(["add-field"])
@@ -24,7 +28,7 @@ function addField(option: string) {
     value: "",
     name: `field_${props.field.length + 1}`,
   }
-  props.addField(props.inputType)
+  props.addField(props.inputType, props.index + 1)
   console.log(props.inputType)
 }
 </script>
