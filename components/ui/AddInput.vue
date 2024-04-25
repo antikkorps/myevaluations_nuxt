@@ -9,10 +9,23 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  addField: {
+    type: Function,
+    required: true,
+  },
 })
 
-function addField(option) {
-  console.log(option)
+const emit = defineEmits(["add-field"])
+
+function addField(option: string) {
+  const newField = {
+    type: option,
+    label: "",
+    value: "",
+    name: `field_${props.field.length + 1}`,
+  }
+  props.addField(props.inputType)
+  console.log(props.inputType)
 }
 </script>
 <template>
@@ -40,7 +53,7 @@ function addField(option) {
       </UFormGroup>
     </div>
     <div class="flex justify-center items-center mx-auto">
-      <UiAddField :options="fieldOptions" :add-field="addField" />
+      <UiAddField @add-field="addField" />
     </div>
   </div>
 </template>
