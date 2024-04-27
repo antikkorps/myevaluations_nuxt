@@ -142,7 +142,7 @@ const submitForm = () => {
 
 <template>
   <div class="flex w-full">
-    <div class="w-1/3 dark:bg-neutral-900 bg-neutral-300 py-4 h-auto items-center">
+    <!-- <div class="w-1/3 dark:bg-neutral-900 bg-neutral-300 py-4 h-auto items-center">
       <InputTypeButton
         v-for="(button, index) in addFormElements"
         :name="`field-${index}`"
@@ -153,14 +153,18 @@ const submitForm = () => {
         :type="button.type"
         @add-field="addField"
       />
-    </div>
+    </div> -->
+
     <div class="w-2/3 mx-auto justify-center items-center">
-      <div class="flex flex-col w-full mx-auto sm:w-4/5 justify-center">
+      <div class="flex flex-col w-full mx-auto mt-10 sm:w-4/5 justify-center">
         <UInput
           v-model="formTitle"
           placeholder="Donnez un titre au formulaire"
           class="mb-4"
         />
+        <div>
+          <UiAddField class="w-full flex justify-center mx-auto" />
+        </div>
         <div v-for="(field, index) in fields" :key="`field-${index}`">
           <UiAddInput
             v-if="field.type === 'text'"
