@@ -2,7 +2,6 @@
 import type { FieldType, OptionType } from "~/types/formsTypes"
 
 import { ref } from "vue"
-import InputTypeButton from "./ui/InputTypeButton.vue"
 
 const fields = ref<FieldType[]>([])
 const formTitle = ref("")
@@ -142,8 +141,10 @@ const submitForm = () => {
 
 <template>
   <div class="flex w-full">
-    <!-- <div class="w-1/3 dark:bg-neutral-900 bg-neutral-300 py-4 h-auto items-center">
-      <InputTypeButton
+    <div
+      class="hidden sm:block w-1/3 dark:bg-neutral-900 bg-neutral-300 py-4 h-auto items-center"
+    >
+      <UiInputTypeButton
         v-for="(button, index) in addFormElements"
         :name="`field-${index}`"
         :key="index"
@@ -153,9 +154,9 @@ const submitForm = () => {
         :type="button.type"
         @add-field="addField"
       />
-    </div> -->
+    </div>
 
-    <div class="w-2/3 mx-auto justify-center items-center">
+    <div class="w-full sm:w-2/3 mx-auto justify-center items-center">
       <div class="flex flex-col w-full mx-auto mt-10 sm:w-4/5 justify-center">
         <UInput
           v-model="formTitle"
@@ -163,7 +164,7 @@ const submitForm = () => {
           class="mb-4"
         />
         <div>
-          <UiAddField class="w-full flex justify-center mx-auto" />
+          <UiAddField @add-field="addField" class="w-full flex justify-center mx-auto" />
         </div>
         <div v-for="(field, index) in fields" :key="`field-${index}`">
           <UiAddInput
@@ -302,7 +303,11 @@ const submitForm = () => {
           />
         </div>
         <div class="flex flex-row w-full sm:w-2/5 justify-end mt-4">
-          <UButton class="w-full" color="primary" variant="solid" @click="submitForm"
+          <UButton
+            class="w-1/2 flex mx-auto justify-center sm:w-full"
+            color="primary"
+            variant="solid"
+            @click="submitForm"
             >Sauvegarder le formulaire</UButton
           >
         </div>
