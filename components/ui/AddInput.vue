@@ -42,6 +42,12 @@ const updateInputType = (newInputType: string, index: number) => {
 <template>
   <div>
     <div class="flex flex-row items-center space-x-2 py-2">
+      <div class="w-10">
+        <Icon
+          name="ph:dots-six-vertical-bold"
+          class="h-8 w-8 border border-spacing-2 rounded-lg"
+        />
+      </div>
       <UFormGroup label="Entrez le titre du champ">
         <UInput
           variant="none"

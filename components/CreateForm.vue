@@ -124,6 +124,13 @@ const addOption = (field: FieldType) => {
   field.options.push({ value: "", label: "", validated: false })
 }
 
+const checkMove = (evt: {
+  relatedContext: { component: { options: { type: string } } }
+}) => {
+  // return evt.relatedContext.component.options.type !== "select"
+  console.log(evt.relatedContext.component.options.type)
+}
+
 const validateOption = (option: OptionType) => {
   option.validated = true
 }
@@ -142,7 +149,7 @@ const submitForm = () => {
 <template>
   <div class="flex w-full">
     <div
-      class="hidden sm:block w-1/3 dark:bg-neutral-900 bg-neutral-300 py-4 h-auto items-center"
+      class="hidden sm:block sm:w-1/3 max-w-sm dark:bg-neutral-900 bg-neutral-300 py-4 h-auto items-center"
     >
       <UiInputTypeButton
         v-for="(button, index) in addFormElements"
@@ -166,142 +173,144 @@ const submitForm = () => {
         <div>
           <UiAddField @add-field="addField" class="w-full flex justify-center mx-auto" />
         </div>
-        <div v-for="(field, index) in fields" :key="`field-${index}`">
-          <UiAddInput
-            v-if="field.type === 'text'"
-            :field="field"
-            :removeField="() => removeField(index)"
-            inputType="text"
-            :addField="addField"
-            :index="index"
-          />
-          <UiAddInput
-            v-if="field.type === 'number'"
-            :field="field"
-            :removeField="() => removeField(index)"
-            inputType="number"
-            :addField="addField"
-            :index="index"
-          />
-
-          <UiAddInput
-            v-if="field.type === 'date'"
-            :field="field"
-            :removeField="() => removeField(index)"
-            inputType="date"
-            :addField="addField"
-            :index="index"
-          />
-          <UInput
-            v-if="field.type === 'time'"
-            :field="field"
-            :removeField="() => removeField(index)"
-            inputType="time"
-          />
-          <div v-if="field.type === 'select'">
-            <USelect
-              type="select"
-              v-model="field.value"
-              :name="field.name"
-              :options="field.options"
+        <draggable v-model="fields" :move="checkMove">
+          <div v-for="(field, index) in fields" :key="`field-${index}`">
+            <UiAddInput
+              v-if="field.type === 'text'"
+              :field="field"
+              :removeField="() => removeField(index)"
+              inputType="text"
+              :addField="addField"
+              :index="index"
+            />
+            <UiAddInput
+              v-if="field.type === 'number'"
+              :field="field"
+              :removeField="() => removeField(index)"
+              inputType="number"
+              :addField="addField"
+              :index="index"
             />
 
-            <UPopover overlay>
-              <UButton
-                color="white"
-                label="Choisir les options"
-                trailing-icon="i-heroicons-chevron-down-20-solid"
+            <UiAddInput
+              v-if="field.type === 'date'"
+              :field="field"
+              :removeField="() => removeField(index)"
+              inputType="date"
+              :addField="addField"
+              :index="index"
+            />
+            <UInput
+              v-if="field.type === 'time'"
+              :field="field"
+              :removeField="() => removeField(index)"
+              inputType="time"
+            />
+            <div v-if="field.type === 'select'">
+              <USelect
+                type="select"
+                v-model="field.value"
+                :name="field.name"
+                :options="field.options"
               />
 
-              <template #panel="{ close }">
-                <div class="p-8">
-                  <div
-                    v-for="(option, optionIndex) in field.options"
-                    :key="`option-${optionIndex}`"
-                  >
-                    <div class="flex justify-center mx-auto py-3">
-                      <UInput v-model="option.value" placeholder="Valeur" />
-                      <UInput v-model="option.label" placeholder="Libellé" />
+              <UPopover overlay>
+                <UButton
+                  color="white"
+                  label="Choisir les options"
+                  trailing-icon="i-heroicons-chevron-down-20-solid"
+                />
+
+                <template #panel="{ close }">
+                  <div class="p-8">
+                    <div
+                      v-for="(option, optionIndex) in field.options"
+                      :key="`option-${optionIndex}`"
+                    >
+                      <div class="flex justify-center mx-auto py-3">
+                        <UInput v-model="option.value" placeholder="Valeur" />
+                        <UInput v-model="option.label" placeholder="Libellé" />
+                      </div>
+                      <UButton
+                        v-if="option.validated"
+                        @click="removeOption(index, optionIndex)"
+                      >
+                        Supprimerl'option
+                      </UButton>
+                      <UButton v-else @click="validateOption(option)"
+                        >Valider l'option</UButton
+                      >
                     </div>
-                    <UButton
-                      v-if="option.validated"
-                      @click="removeOption(index, optionIndex)"
-                    >
-                      Supprimerl'option
-                    </UButton>
-                    <UButton v-else @click="validateOption(option)"
-                      >Valider l'option</UButton
-                    >
+                    <div>
+                      <UButton @click="addOption(field)"></UButton>
+                    </div>
+                    <div>
+                      <UButton label="Fermer la fenêtre" @click="close" />
+                    </div>
                   </div>
-                  <div>
-                    <UButton @click="addOption(field)"></UButton>
-                  </div>
-                  <div>
-                    <UButton label="Fermer la fenêtre" @click="close" />
-                  </div>
-                </div>
-              </template>
-            </UPopover>
+                </template>
+              </UPopover>
+            </div>
+            <UInput
+              v-if="field.type === 'radio'"
+              type="radio"
+              v-model="field.value"
+              :name="field.name"
+            />
+            <UInput
+              v-if="field.type === 'checkbox'"
+              type="checkbox"
+              v-model="field.value"
+              :name="field.name"
+            />
+            <UInput
+              v-if="field.type === 'textarea'"
+              type="textarea"
+              v-model="field.value"
+              :name="field.name"
+            />
+            <UInput
+              v-if="field.type === 'file'"
+              type="file"
+              v-model="field.value"
+              :name="field.name"
+            />
+            <UInput
+              v-if="field.type === 'email'"
+              type="email"
+              v-model="field.value"
+              :name="field.name"
+            />
+            <UInput
+              v-if="field.type === 'phone'"
+              type="phone"
+              v-model="field.value"
+              :name="field.name"
+            />
+            <UInput
+              v-if="field.type === 'color'"
+              type="color"
+              v-model="field.value"
+              :name="field.name"
+            />
+            <URange
+              v-if="field.type === 'range'"
+              type="range"
+              v-model="field.value"
+              :name="field.name"
+              :min="0"
+              :max="100"
+              :model-value="0"
+              :step="10"
+            />
+            <UInput
+              v-if="field.type === 'star'"
+              type="star"
+              v-model="field.value"
+              :name="field.name"
+            />
           </div>
-          <UInput
-            v-if="field.type === 'radio'"
-            type="radio"
-            v-model="field.value"
-            :name="field.name"
-          />
-          <UInput
-            v-if="field.type === 'checkbox'"
-            type="checkbox"
-            v-model="field.value"
-            :name="field.name"
-          />
-          <UInput
-            v-if="field.type === 'textarea'"
-            type="textarea"
-            v-model="field.value"
-            :name="field.name"
-          />
-          <UInput
-            v-if="field.type === 'file'"
-            type="file"
-            v-model="field.value"
-            :name="field.name"
-          />
-          <UInput
-            v-if="field.type === 'email'"
-            type="email"
-            v-model="field.value"
-            :name="field.name"
-          />
-          <UInput
-            v-if="field.type === 'phone'"
-            type="phone"
-            v-model="field.value"
-            :name="field.name"
-          />
-          <UInput
-            v-if="field.type === 'color'"
-            type="color"
-            v-model="field.value"
-            :name="field.name"
-          />
-          <URange
-            v-if="field.type === 'range'"
-            type="range"
-            v-model="field.value"
-            :name="field.name"
-            :min="0"
-            :max="100"
-            :model-value="0"
-            :step="10"
-          />
-          <UInput
-            v-if="field.type === 'star'"
-            type="star"
-            v-model="field.value"
-            :name="field.name"
-          />
-        </div>
+        </draggable>
         <div class="flex flex-row w-full sm:w-2/5 justify-end mt-4">
           <UButton
             class="w-1/2 flex mx-auto justify-center sm:w-full"
