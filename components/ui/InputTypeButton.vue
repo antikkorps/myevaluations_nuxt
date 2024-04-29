@@ -33,7 +33,7 @@ const clickHandler = () => {
       <Icon :name="icon" class="w-6 h-6 text-white" />
     </div>
     <div class="flex flex-col justify-start text-start">
-      <div class="text-lg">{{ label }}</div>
+      <div class="text">{{ label }}</div>
       <div class="text-sm">{{ description }}</div>
     </div>
   </button>
