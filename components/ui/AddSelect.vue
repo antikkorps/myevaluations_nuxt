@@ -29,6 +29,12 @@ const removeOption = (fieldIndex: number, optionIndex: number) => {
 </script>
 <template>
   <div class="flex flex-row w-full space-x-2">
+    <div class="w-10">
+      <Icon
+        name="ph:dots-six-vertical-bold"
+        class="h-8 w-8 border border-spacing-2 rounded-lg"
+      />
+    </div>
     <UPopover overlay>
       <UButton
         color="white"
