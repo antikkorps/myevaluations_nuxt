@@ -117,12 +117,12 @@ const removeField = (index: number) => {
   fields.value.splice(index, 1)
 }
 
-const addOption = (field: FieldType) => {
-  if (!Array.isArray(field.options)) {
-    field.options = []
-  }
-  field.options.push({ value: "", label: "", validated: false })
-}
+// const addOption = (field: FieldType) => {
+//   if (!Array.isArray(field.options)) {
+//     field.options = []
+//   }
+//   field.options.push({ value: "", label: "", validated: false })
+// }
 
 const checkMove = (evt: {
   relatedContext: { component: { options: { type: string } } }
@@ -131,14 +131,14 @@ const checkMove = (evt: {
   console.log(evt.relatedContext.component.options.type)
 }
 
-const validateOption = (option: OptionType) => {
-  option.validated = true
-}
+// const validateOption = (option: OptionType) => {
+//   option.validated = true
+// }
 
-const removeOption = (fieldIndex: number, optionIndex: number) => {
-  fields.value[fieldIndex].options.splice(optionIndex, 1)
-  fields.value[fieldIndex].options = [...fields.value[fieldIndex].options]
-}
+// const removeOption = (fieldIndex: number, optionIndex: number) => {
+//   fields.value[fieldIndex].options.splice(optionIndex, 1)
+//   fields.value[fieldIndex].options = [...fields.value[fieldIndex].options]
+// }
 
 const submitForm = () => {
   // Submit the form
@@ -208,56 +208,15 @@ const submitForm = () => {
               :addField="addField"
               :index="index"
             />
-            <div v-if="field.type === 'select'">
-              <div class="flex flex-row w-full space-x-2">
-                <UPopover overlay>
-                  <UButton
-                    color="white"
-                    label="Définir les options"
-                    trailing-icon="i-heroicons-chevron-down-20-solid"
-                  />
 
-                  <template #panel="{ close }">
-                    <div class="p-8">
-                      <div
-                        v-for="(option, optionIndex) in field.options"
-                        :key="`option-${optionIndex}`"
-                      >
-                        <div class="flex justify-center mx-auto py-3">
-                          <UInput v-model="option.value" placeholder="Valeur" />
-                          <UInput v-model="option.label" placeholder="Libellé" />
-                        </div>
-                        <UButton
-                          v-if="option.validated"
-                          @click="removeOption(index, optionIndex)"
-                        >
-                          Supprimerl'option
-                        </UButton>
-                        <UButton v-else @click="validateOption(option)"
-                          >Valider l'option</UButton
-                        >
-                      </div>
-                      <div class="my-4">
-                        <UButton @click="addOption(field)"
-                          ><Icon name="ion:add"
-                        /></UButton>
-                      </div>
-                      <div>
-                        <UButton label="Fermer la fenêtre" @click="close" />
-                      </div>
-                    </div>
-                  </template>
-                </UPopover>
+            <UiAddSelect
+              v-if="field.type === 'select'"
+              :field="field"
+              :removeField="() => removeField(index)"
+              :addField="addField"
+              :index="index"
+            />
 
-                <USelect
-                  type="select"
-                  v-model="field.value"
-                  :name="field.name"
-                  :options="field.options"
-                />
-                <UiDeleteFieldButton :removeField="removeField" />
-              </div>
-            </div>
             <UInput
               v-if="field.type === 'radio'"
               type="radio"
@@ -307,7 +266,6 @@ const submitForm = () => {
               :name="field.name"
               :min="0"
               :max="100"
-              :model-value="0"
               :step="10"
             />
             <UInput
