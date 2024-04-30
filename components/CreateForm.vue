@@ -200,56 +200,63 @@ const submitForm = () => {
               :addField="addField"
               :index="index"
             />
-            <UInput
+            <UiAddInput
               v-if="field.type === 'time'"
               :field="field"
               :removeField="() => removeField(index)"
               inputType="time"
+              :addField="addField"
+              :index="index"
             />
             <div v-if="field.type === 'select'">
-              <USelect
-                type="select"
-                v-model="field.value"
-                :name="field.name"
-                :options="field.options"
-              />
+              <div class="flex flex-row w-full space-x-2">
+                <UPopover overlay>
+                  <UButton
+                    color="white"
+                    label="Définir les options"
+                    trailing-icon="i-heroicons-chevron-down-20-solid"
+                  />
 
-              <UPopover overlay>
-                <UButton
-                  color="white"
-                  label="Choisir les options"
-                  trailing-icon="i-heroicons-chevron-down-20-solid"
-                />
-
-                <template #panel="{ close }">
-                  <div class="p-8">
-                    <div
-                      v-for="(option, optionIndex) in field.options"
-                      :key="`option-${optionIndex}`"
-                    >
-                      <div class="flex justify-center mx-auto py-3">
-                        <UInput v-model="option.value" placeholder="Valeur" />
-                        <UInput v-model="option.label" placeholder="Libellé" />
+                  <template #panel="{ close }">
+                    <div class="p-8">
+                      <div
+                        v-for="(option, optionIndex) in field.options"
+                        :key="`option-${optionIndex}`"
+                      >
+                        <div class="flex justify-center mx-auto py-3">
+                          <UInput v-model="option.value" placeholder="Valeur" />
+                          <UInput v-model="option.label" placeholder="Libellé" />
+                        </div>
+                        <UButton
+                          v-if="option.validated"
+                          @click="removeOption(index, optionIndex)"
+                        >
+                          Supprimerl'option
+                        </UButton>
+                        <UButton v-else @click="validateOption(option)"
+                          >Valider l'option</UButton
+                        >
                       </div>
-                      <UButton
-                        v-if="option.validated"
-                        @click="removeOption(index, optionIndex)"
-                      >
-                        Supprimerl'option
-                      </UButton>
-                      <UButton v-else @click="validateOption(option)"
-                        >Valider l'option</UButton
-                      >
+                      <div class="my-4">
+                        <UButton @click="addOption(field)"
+                          ><Icon name="ion:add"
+                        /></UButton>
+                      </div>
+                      <div>
+                        <UButton label="Fermer la fenêtre" @click="close" />
+                      </div>
                     </div>
-                    <div>
-                      <UButton @click="addOption(field)"></UButton>
-                    </div>
-                    <div>
-                      <UButton label="Fermer la fenêtre" @click="close" />
-                    </div>
-                  </div>
-                </template>
-              </UPopover>
+                  </template>
+                </UPopover>
+
+                <USelect
+                  type="select"
+                  v-model="field.value"
+                  :name="field.name"
+                  :options="field.options"
+                />
+                <UiDeleteFieldButton :removeField="removeField" />
+              </div>
             </div>
             <UInput
               v-if="field.type === 'radio'"
@@ -311,7 +318,7 @@ const submitForm = () => {
             />
           </div>
         </draggable>
-        <div class="flex flex-row w-full sm:w-2/5 justify-end mt-4">
+        <div class="flex flex-row w-full mx-auto sm:w-2/5 justify-end mt-4">
           <UButton
             class="w-1/2 flex mx-auto justify-center sm:w-full"
             color="primary"
