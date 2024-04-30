@@ -41,7 +41,7 @@ const updateInputType = (newInputType: string, index: number) => {
 </script>
 <template>
   <div>
-    <div class="flex flex-row items-center space-x-2 py-2">
+    <div class="flex flex-row items-center space-x-2 my-3 py-2">
       <div class="w-10">
         <Icon
           name="ph:dots-six-vertical-bold"

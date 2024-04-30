@@ -28,7 +28,7 @@ const removeOption = (fieldIndex: number, optionIndex: number) => {
 }
 </script>
 <template>
-  <div class="flex flex-row w-full space-x-2">
+  <div class="flex flex-row w-full my-4 py-3 space-x-2">
     <div class="w-10">
       <Icon
         name="ph:dots-six-vertical-bold"
