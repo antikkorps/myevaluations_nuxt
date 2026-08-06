@@ -30,7 +30,7 @@
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
     "@hebilicious/authjs-nuxt": "^0.3.5",
-    "@nuxt/ui": "^2.15.2",
+    "@nuxt/ui": "^4.8.1",
     "@nuxtjs/tailwindcss": "^6.11.4",
     "@types/bcrypt": "^5.0.2",
     "nuxt-icon": "^0.6.10",
